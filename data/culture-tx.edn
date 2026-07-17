@@ -1,0 +1,14 @@
+;; data/culture-tx.edn — DataScript tx-data derived from src/culture/facts.cljc
+;; `culture.facts/catalog` (ADR-2607171400 addendum 2, Wave 1 country-level).
+;; Same shape across every cloud-itonami-iso3166-* sibling. Do not hand-edit;
+;; regenerate from the catalog.
+
+[
+#:culture{:id "lca.dish.green-figs-and-saltfish", :name "Green figs and saltfish", :country "LCA", :kind :dish, :summary "National dish of Saint Lucia consisting of green bananas (locally called green figs) and saltfish.", :url "https://en.wikipedia.org/wiki/Saint_Lucian_cuisine", :url-provenance :wikipedia-en, :retrieved-at "2026-07-17"}
+#:culture{:id "lca.dish.bouyon", :name "Bouyon", :country "LCA", :kind :dish, :summary "Thick red-bean one-pot soup meal made of meat, ground provisions and vegetables, a popular dish in Saint Lucia.", :url "https://en.wikipedia.org/wiki/Saint_Lucian_cuisine", :url-provenance :wikipedia-en, :retrieved-at "2026-07-17"}
+#:culture{:id "lca.dish.callaloo", :name "Callaloo", :country "LCA", :kind :dish, :summary "Caribbean leafy-green dish shared across the region; in Saint Lucia crab callaloo is popular, especially as part of the country's Creole day celebrations.", :url "https://en.wikipedia.org/wiki/Callaloo", :url-provenance :wikipedia-en, :retrieved-at "2026-07-17"}
+#:culture{:id "lca.dish.accra", :name "Accra", :country "LCA", :kind :dish, :summary "Fried Saint Lucian snack composed of flour, egg, seasoning and saltfish, usually prepared around Easter.", :url "https://en.wikipedia.org/wiki/Saint_Lucian_cuisine", :url-provenance :wikipedia-en, :retrieved-at "2026-07-17"}
+#:culture{:id "lca.beverage.piton-beer", :name "Piton", :country "LCA", :kind :beverage, :summary "Pilsner beer brand from Saint Lucia, first brewed in Vieux Fort in 1992 and named after the Gros Piton and Petit Piton mountains.", :url "https://en.wikipedia.org/wiki/Piton_(beer)", :url-provenance :wikipedia-en, :retrieved-at "2026-07-17"}
+#:culture{:id "lca.festival.saint-lucia-jazz", :name "Saint Lucia Jazz and Arts Festival", :country "LCA", :kind :festival, :summary "Annual festival held in Saint Lucia since 1992, bringing together local and international musicians, performing artists and artisans.", :url "https://en.wikipedia.org/wiki/Saint_Lucia_Jazz_and_Arts_Festival", :url-provenance :wikipedia-en, :retrieved-at "2026-07-17"}
+#:culture{:id "lca.heritage.pitons", :name "Pitons", :country "LCA", :kind :heritage, :summary "Two volcanic mountain peaks (Gros Piton and Petit Piton) near Soufrière; the surrounding Pitons Management Area was inscribed as a UNESCO World Heritage Site in 2004.", :url "https://en.wikipedia.org/wiki/Pitons_(Saint_Lucia)", :url-provenance :wikipedia-en, :retrieved-at "2026-07-17"}
+]
