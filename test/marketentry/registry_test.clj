@@ -1,0 +1,66 @@
+(ns marketentry.registry-test
+  (:require [clojure.test :refer [deftest is testing]]
+            [marketentry.registry :as registry]))
+
+(deftest engagement-fee-recompute
+  (let [e {:base-fee 500000 :monthly-rate 30000 :monitoring-months 12 :claimed-fee 860000.0}]
+    (is (== 860000.0 (registry/compute-engagement-fee e)))
+    (is (true? (registry/engagement-fee-matches-claim? e))))
+  (let [bad {:base-fee 500000 :monthly-rate 30000 :monitoring-months 12 :claimed-fee 999000.0}]
+    (is (false? (registry/engagement-fee-matches-claim? bad)))))
+
+(deftest register-draft-and-submit
+  (let [d (registry/register-draft "eng-1" "LCA" 0)
+        s (registry/register-submit "eng-1" "LCA" 0)]
+    (is (= "LCA-DFT-000000" (get d "draft_number")))
+    (is (= "LCA-SUB-000000" (get s "submit_number")))
+    (is (nil? (get-in d ["certificate" "proof"])))
+    (is (= "draft-unsigned" (get-in s ["certificate" "status"])))))
+
+(deftest register-requires-ids
+  (is (thrown? Exception (registry/register-draft "" "LCA" 0)))
+  (is (thrown? Exception (registry/register-submit "eng-1" "" 0))))
+
+(deftest lawful-suspension-duration
+  (testing "within s.114(3)'s own 6-60 month range -> lawful"
+    (is (true? (registry/lawful-suspension-duration? 6)))
+    (is (true? (registry/lawful-suspension-duration? 60)))
+    (is (true? (registry/lawful-suspension-duration? 24))))
+  (testing "outside the range, or absent -> unlawful"
+    (is (false? (registry/lawful-suspension-duration? 5)))
+    (is (false? (registry/lawful-suspension-duration? 61)))
+    (is (false? (registry/lawful-suspension-duration? nil)))))
+
+(deftest compute-suspension-end-bumps-months-with-year-rollover
+  (testing "within the same year"
+    (is (= "2026-07-15" (registry/compute-suspension-end "2026-01-15" 6))))
+  (testing "crossing a year boundary"
+    (is (= "2027-02-15" (registry/compute-suspension-end "2026-08-15" 6))))
+  (testing "the full 5-year (60 month) statutory maximum"
+    (is (= "2029-06-01" (registry/compute-suspension-end "2024-06-01" 60))))
+  (testing "missing inputs"
+    (is (nil? (registry/compute-suspension-end nil 6)))
+    (is (nil? (registry/compute-suspension-end "2026-01-15" nil)))))
+
+(deftest suspension-disqualifying
+  (testing "submission date falls within the suspension window -> disqualifying"
+    (is (true? (registry/suspension-disqualifying?
+                {:suspension-start-date "2026-03-01" :suspension-duration-months 6
+                 :submission-date "2026-07-23"}))))
+  (testing "the window's own end date itself is still disqualifying (on-or-before)"
+    (is (true? (registry/suspension-disqualifying?
+                {:suspension-start-date "2026-01-23" :suspension-duration-months 6
+                 :submission-date "2026-07-23"}))))
+  (testing "submission date strictly AFTER the computed suspension end -> no longer disqualifying"
+    (is (false? (registry/suspension-disqualifying?
+                 {:suspension-start-date "2025-06-01" :suspension-duration-months 6
+                  :submission-date "2026-07-23"}))))
+  (testing "no suspension on file -> never disqualifying"
+    (is (false? (registry/suspension-disqualifying?
+                 {:suspension-start-date nil :suspension-duration-months nil
+                  :submission-date "2026-07-23"})))
+    (is (false? (registry/suspension-disqualifying? {}))))
+  (testing "an out-of-range declared duration is an untrustworthy record -> disqualifying regardless of the apparent window"
+    (is (true? (registry/suspension-disqualifying?
+                {:suspension-start-date "2020-01-01" :suspension-duration-months 2
+                 :submission-date "2026-07-23"})))))
