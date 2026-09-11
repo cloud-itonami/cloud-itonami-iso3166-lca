@@ -171,7 +171,7 @@ verticals (International Banking Act Cap. 12.17, International
 Insurance Act Cap. 12.15, International Mutual Funds Act Cap. 12.16)
 plus a Registered Agent and Trustee Licencing Act (Cap. 12.12), not a
 single generic IBC vehicle. This ADR documents these findings (see
-`src/marketentry/facts.cljc`'s namespace docstring for the full
+`src/marketentry/facts.cljk`'s namespace docstring for the full
 citations) but deliberately does NOT fold them into the executable
 catalog or governor checks: this blueprint's domain
 (`:public-sector/market-entry-compliance`) is about bidding into PUBLIC
