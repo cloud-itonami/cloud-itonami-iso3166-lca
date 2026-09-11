@@ -75,7 +75,7 @@
 - **International Business Companies (Act 40 of 1999)**: a DIFFERENT
   market-entry act entirely (offshore company formation, not
   public-procurement bidding) -- deliberately out of scope for this
-  blueprint. See `src/marketentry/facts.cljc` for the honest research
+  blueprint. See `src/marketentry/facts.cljk` for the honest research
   finding on that Act and Saint Lucia's international financial
   services sector (FSRA-regulated international banking/insurance/
   mutual funds).
