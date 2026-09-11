@@ -51,8 +51,8 @@ compliance department.
 | Ops | `:engagement/intake` · `:jurisdiction/assess` · `:filing/draft` · `:filing/submit` |
 | Flagship HARD check | `suspension-disqualifying` (Public Procurement Act, Cap. 15.10 s.114: the Director may suspend a tenderer/contractor for a statutorily-bounded 6-60 month period; Public Procurement Regulations 2023 reg.25(2)(b) disqualifies participation for the duration of that suspension -- independently recomputed from the engagement's own declared suspension start/duration/submission dates, see `docs/adr/0001-architecture.md`) |
 | Compliance catalog | `src/statute/facts.cljk` -- Companies Act, Labour Act, Data Protection Act (partial commencement) |
-| Tests | `clojure -M:dev:test` |
-| Demo | `clojure -M:dev:run` |
+| Tests | `kbb -M:dev:test` |
+| Demo | `kbb -M:dev:run` |
 | Architecture ADR | [`docs/adr/0001-architecture.md`](docs/adr/0001-architecture.md) |
 
 `:filing/submit` is never in any phase's `:auto` set -- human sign-off
