@@ -23,7 +23,7 @@
   Cap. 15.10 s.114 + Public Procurement Regulations 2023 reg.25(2)(b)).
 
   The ledger stays append-only on every backend."
-  (:require #?(:clj  [clojure.edn :as edn]
+  (:require #?(:clj  [kotoba.lang.edn :as edn]
                :cljs [cljs.reader :as edn])
             [marketentry.registry :as registry]
             [langchain.db :as d]))
